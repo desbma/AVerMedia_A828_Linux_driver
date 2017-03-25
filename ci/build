@@ -5,6 +5,7 @@ set -o pipefail
 readonly KERNEL_VERSION=${1:?}
 readonly ARCH=${2:?}
 readonly KERNEL_VERSION_MAJOR=$(echo $KERNEL_VERSION | cut -d '.' -f 1-2)
+readonly GCC_MAJOR_VERSION=$(gcc --version | head -n 1 | sed -e 's/^.* \([0-9]\).[0-9].[0-9] .*$/\1/')
 readonly PROC_COUNT=$(grep -c '^processor' /proc/cpuinfo)
 
 
@@ -21,11 +22,24 @@ fi
 tar -xJf $kernel_archive -C ~/Linux
 kernel_dir=$HOME/Linux/linux-${KERNEL_VERSION}
 
-# configure it
 pushd $kernel_dir
-make mrproper
-make ${ARCH}_defconfig || true
-make modules_prepare || true
+  # fix compilation of old kernels with recent GCC
+  if [ ! -f include/linux/compiler-gcc${GCC_MAJOR_VERSION}.h ]
+  then
+    pushd include/linux
+    if [ -f compiler-gcc5.h -a $GCC_MAJOR_VERSION -gt 5 ]
+    then
+      ln -sv compiler-gcc5.h compiler-gcc${GCC_MAJOR_VERSION}.h
+    else
+      ln -sv compiler-gcc4.h compiler-gcc${GCC_MAJOR_VERSION}.h
+    fi
+    popd
+  fi
+
+  # configure kernel
+  make mrproper
+  make ${ARCH}_defconfig || true
+  make modules_prepare || true
 popd
 
 # build
