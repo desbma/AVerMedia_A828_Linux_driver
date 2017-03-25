@@ -1,0 +1,6 @@
+/src/**/*.o*
+/src/*.cmd
+/src/*.ko
+/src/*.mod.c
+/src/.tmp_versions
+/src/Module.*
