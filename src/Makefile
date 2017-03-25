@@ -16,7 +16,8 @@ endif
 COBJS = a828-core.o aver/osdep_dvb.o 	aver/osdep_th2.o aver/osdep_v4l2.o aver/osdep_vbuf.o 	aver/osdep_alsa.o
 
 
-PREBUILD_OBJ = _prebuild.o
+ARCH ?= x86_64
+PREBUILD_OBJ = ../prebuilt/${ARCH}/_prebuild.o
 
 
 extra-version := $(shell egrep -e '^EXTRAVERSION' $(KERNELOBJ)/Makefile | awk 'BEGIN{FS="="}{print $$2}' | tr -d ' ')
