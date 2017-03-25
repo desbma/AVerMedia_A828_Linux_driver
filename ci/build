@@ -3,6 +3,7 @@
 set -o pipefail
 
 readonly KERNEL_VERSION=${1:?}
+readonly ARCH=${2:?}
 readonly KERNEL_VERSION_MAJOR=$(echo $KERNEL_VERSION | cut -d '.' -f 1-2)
 readonly PROC_COUNT=$(grep -c '^processor' /proc/cpuinfo)
 
@@ -22,7 +23,8 @@ kernel_dir=$HOME/Linux/linux-${KERNEL_VERSION}
 
 # configure it
 pushd $kernel_dir
-make defconfig || true
+make mrproper
+make ${ARCH}_defconfig || true
 make modules_prepare || true
 popd
 
