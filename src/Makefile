@@ -56,7 +56,7 @@ obj-m := a828.o averusba828.o
 a828-objs := $(COBJS) $(PREBUILD_OBJ)
 averusba828-objs := aver/averusb-mod.o
 default:: links
-	$(MAKE) -C $(KERNELSRC) O=$(KERNELOBJ) SUBDIRS=`pwd` $(TARGET)
+	$(MAKE) -C $(KERNELSRC) O=$(KERNELOBJ) SUBDIRS=`pwd` ARCH=${ARCH} $(TARGET)
 	$(CROSS_COMPILE)strip --strip-debug *.ko
 
 

@@ -19,8 +19,9 @@ then
 fi
 
 # extract kernel
-tar -xJf $kernel_archive -C ~/Linux
 kernel_dir=$HOME/Linux/linux-${KERNEL_VERSION}
+rm -Rf $kernel_dir
+tar -xJf $kernel_archive -C ~/Linux
 
 pushd $kernel_dir
   # fix compilation of old kernels with recent GCC
@@ -37,12 +38,12 @@ pushd $kernel_dir
   fi
 
   # configure kernel
-  make mrproper
-  make ${ARCH}_defconfig || true
-  make modules_prepare || true
+  make ARCH=${ARCH} ${ARCH}_defconfig || true
+  make ARCH=${ARCH} modules_prepare || true
 popd
 
 # build
 pushd src
-make -j $PROC_COUNT KERNELDIR=$kernel_dir
+make clean
+make -j $PROC_COUNT KERNELDIR=$kernel_dir ARCH=$ARCH
 popd
