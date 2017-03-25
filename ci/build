@@ -1,0 +1,25 @@
+#!/bin/bash -eux
+
+set -o pipefail
+
+readonly KERNEL_VERSION=${1:?}
+readonly KERNEL_VERSION_MAJOR=$(echo $KERNEL_VERSION | cut -d '.' -f 1-2)
+readonly PROC_COUNT=$(grep -c '^processor' /proc/cpuinfo)
+
+
+# download
+kernel_archive=~/Linux/linux-${KERNEL_VERSION}.tar.xz
+if [ ! -f $kernel_archive ]
+then
+  url=https://www.kernel.org/pub/linux/kernel/v${KERNEL_VERSION_MAJOR}/linux-${KERNEL_VERSION}.tar.xz
+  mkdir -pv $(dirname $kernel_archive)
+  curl "$url" > $kernel_archive
+fi
+
+# extract kernel
+tar -xJf $kernel_archive -C ~/Linux
+
+# build
+pushd src
+make -j $PROC_COUNT
+popd

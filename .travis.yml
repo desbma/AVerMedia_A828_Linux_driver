@@ -1,0 +1,27 @@
+dist: trusty
+sudo: false
+language: c
+cache:
+  directories:
+    - $HOME/Linux
+env:
+  - KERNEL_VERSION=2.6.16
+  - KERNEL_VERSION=2.6.17
+  - KERNEL_VERSION=2.6.27
+  - KERNEL_VERSION=2.6.30
+  - KERNEL_VERSION=2.6.32
+  - KERNEL_VERSION=2.6.33
+  - KERNEL_VERSION=2.6.34
+  - KERNEL_VERSION=2.6.35
+matrix:
+  allow_failures:
+    - env: KERNEL_VERSION=2.6.16
+  fast_finish: true
+script:
+  - "./ci/build $KERNEL_VERSION"
+notifications:
+  email:
+    recipients:
+      - secure: "DXR/nASavPt9ekFEV+q22N2vHbW7+aYEmo9KwBJZbak/5S8sleHHC2WeQ1uiFI1kErggwHQfmz3H2XsywOb/0Gfn/32D52pY0OE6Psg2A+lPJHDyDjGUt6+5Asn7vMPossX3yGEqwgfiL5Vbg3lBB0E7VhehXVPA/+SVfZpP3ubIrTHZg/7VuJrMsuTQjdieCHCIGfsjLiTXnwp1YaVOmZOFByWoGSxgzKhtLFh2UebCKNVsXgU9wN/j5h6wtuUQPnP+ilo93WHf5fH7sG3hlLR02mkuZUeczfjDSOZm3w0/U9/HGUyiG9FktQ7qUTt71TDfaWgLHTlYbQbXLYZUPjy8064wyxU9hq7u/5WfwyIChcoBov3hwH/tXFZRzSnBCpsH6GMPQkeqGvnJi0phtGxOeAc72NokiXzs+KphWskrl/2Gf75rJUNKpGYlMf0oVRYnLZvdpeXRvEuOkfRMbpzZ1trgYdYUcbr++A3XQ0FfXEOu1uuDGVOXQ0abyyC/+7Ug83ZhuJ6HodAtg5jo9QiN1/ZHF0yKnflWC5CRsvwUZ1ZI+oz/nkhttVbMnetjGagDyRaF7WnJaaP8Lu4+QxSBD6zBqbLhmWH010YvrsvgSivWgcnAKS63Mt9CvFto+RM1O/dEzohixyca4pwQyTp4005J9RFAct339qAzCRw="
+    on_success: change
+    on_failure: change
