@@ -18,8 +18,15 @@ fi
 
 # extract kernel
 tar -xJf $kernel_archive -C ~/Linux
+kernel_dir=$HOME/Linux/linux-${KERNEL_VERSION}
+
+# configure it
+pushd $kernel_dir
+make defconfig || true
+make modules_prepare || true
+popd
 
 # build
 pushd src
-make -j $PROC_COUNT
+make -j $PROC_COUNT KERNELDIR=$kernel_dir
 popd
