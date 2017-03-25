@@ -1,7 +1,7 @@
 AVerMedia A828 ("AVerTV Hybrid+FM Volar") Linux driver
 ======================================================
 
-[![Tests status](https://img.shields.io/travis/desbma/AVerMediaA828LinuxDriver/master.svg?label=tests&style=flat)](https://travis-ci.org/desbma/AVerMediaA828LinuxDriver)
+[![Tests status](https://img.shields.io/travis/desbma/AVerMedia_A828_Linux_driver/master.svg?label=tests&style=flat)](https://travis-ci.org/desbma/AVerMedia_A828_Linux_driver)
 
 This is a work in progress attempt to port the A828 Linux driver to recent kernel versions.
 
@@ -10,7 +10,7 @@ The original official driver supports x86 and x86-64 architecture and has binary
 
 ## Goals
 
-* Ensure the driver compiles on kernel from versions 2.6.x to the most recent (tested with [Travis CI](https://travis-ci.org/desbma/AVerMediaA828LinuxDriver))
+* Ensure the driver compiles on kernel from versions 2.6.x to the most recent (tested with [Travis CI](https://travis-ci.org/desbma/AVerMedia_A828_Linux_driver))
 * Test the tuner with the driver on a few of these versions on x86-64
 
 
