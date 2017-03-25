@@ -23,7 +23,7 @@ The original official driver supports x86 and x86-64 architecture and has binary
 
 ## Other A828 Linux drivers versions
 
-* Last official version of the Linux driver from AVerMedia: 0.28 beta ([x86 mirror](https://www.dropbox.com/s/8dggc71dnr5qdrb/A828_Installer_x86_0.28-Beta_091125.zip?dl=0),  [x86-64 mirror](https://www.dropbox.com/s/lglgkypmxmftsp6/A828_Installer_x64_0.28-Beta_091125.zip?dl=0)), works up to kernel 2.6.30
+* Last official version of the Linux driver from AVerMedia: 0.28 beta ([x86 mirror](https://www.dropbox.com/s/8dggc71dnr5qdrb/A828_Installer_x86_0.28-Beta_091125.zip?dl=0),  [x86-64 mirror](https://www.dropbox.com/s/lglgkypmxmftsp6/A828_Installer_x64_0.28-Beta_091125.zip?dl=0)), officially supports kernel 2.6.17 to 2.6.30, but works up to 2.6.36
 * http://coldsun.free.fr/a828/a828-0.28.zip (modifications from official driver detailed [here](https://www.linuxtv.org/wiki/index.php/AVerMedia_A828#Modifications_to_bring)), works up to kernel 3.2
 * https://github.com/inzaghi123456789/avermedia-a828, works up to kernel 3.2
 * https://github.com/blackwarthog/avermedia-a828, builds (partially works?) for kernel 3.16
