@@ -86,7 +86,9 @@ shall govern.
 #include <linux/errno.h>
 #include <linux/sched.h>
 #include <linux/kref.h>
+#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,37)
 #include <linux/smp_lock.h>
+#endif
 #include <linux/proc_fs.h>
 #include <linux/list.h>
 #include <linux/kdev_t.h>
@@ -432,11 +434,11 @@ int SysSemInit(pSemaphore *sem, enum sem_type type)
 	if( !tmp ) return -ENOMEM;
 	
 	if(st_Mutex == type) {
-		init_MUTEX(tmp);
+		sema_init(tmp, 1);
 		*sem = (pSemaphore) tmp;
 	}
 	else if(st_MutexLocked == type) {
-		init_MUTEX_LOCKED(tmp);
+		sema_init(tmp, 0);
 		*sem = (pSemaphore) tmp;
 	}
 	else {
@@ -1067,14 +1069,26 @@ void SysKrefFree(pKref kref)
 	kfree(kref);
 }
 
+#if LINUX_VERSION_CODE > KERNEL_VERSION(2,6,36)
+static DEFINE_MUTEX(dvbdev_mutex);
+#endif
+
 void SysLockKernel()
 {
+#if LINUX_VERSION_CODE > KERNEL_VERSION(2,6,36)
+	mutex_lock(&dvbdev_mutex);
+#else
 	lock_kernel();
+#endif
 }
 
 void SysUnlockKernel()
 {
+#if LINUX_VERSION_CODE > KERNEL_VERSION(2,6,36)
+	mutex_unlock(&dvbdev_mutex);
+#else
 	unlock_kernel();
+#endif
 }
 
 unsigned long SysCopyToUser(void *to, const void *from, unsigned long n)

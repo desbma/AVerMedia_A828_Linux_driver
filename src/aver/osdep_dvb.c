@@ -76,7 +76,9 @@ shall govern.
 #include <linux/version.h>
 #include <linux/slab.h>
 #include <linux/errno.h>
+#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,37)
 #include <linux/smp_lock.h>
+#endif
 
 #include <linux/dvb/video.h>
 #include <linux/dvb/audio.h>

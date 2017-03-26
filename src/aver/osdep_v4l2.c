@@ -81,7 +81,9 @@ shall govern.
 #include <linux/pci.h>
 #include <linux/init.h>
 #include <linux/list.h>
+#if LINUX_VERSION_CODE < KERNEL_VERSION(2,6,37)
 #include <linux/smp_lock.h>
+#endif
 #include <linux/fs.h>
 
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,18) 
@@ -98,6 +100,10 @@ shall govern.
 #include "osdep_v4l2.h"
 
 #include "debug.h"
+
+#if LINUX_VERSION_CODE > KERNEL_VERSION(2,6,36)
+#define VFL_TYPE_VTX    3
+#endif
 
 struct videodev_context
 {
