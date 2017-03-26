@@ -4,7 +4,6 @@ set -o pipefail
 
 readonly KERNEL_VERSION=${1:?}
 readonly ARCH=${2:?}
-readonly KERNEL_VERSION_MAJOR=$(echo $KERNEL_VERSION | cut -d '.' -f 1-2)
 readonly GCC_MAJOR_VERSION=$(gcc --version | head -n 1 | sed -e 's/^.* \([0-9]\).[0-9].[0-9] .*$/\1/')
 readonly PROC_COUNT=$(grep -c '^processor' /proc/cpuinfo)
 
@@ -13,8 +12,24 @@ readonly PROC_COUNT=$(grep -c '^processor' /proc/cpuinfo)
 kernel_archive=~/Linux/linux-${KERNEL_VERSION}.tar.xz
 if [ ! -f $kernel_archive ]
 then
-  url=https://www.kernel.org/pub/linux/kernel/v${KERNEL_VERSION_MAJOR}/linux-${KERNEL_VERSION}.tar.xz
   mkdir -pv $(dirname $kernel_archive)
+  kernel_version_first_digit=$(echo $KERNEL_VERSION | cut -d '.' -f 1)
+  if [ $kernel_version_first_digit -eq 2 ]
+  then
+    kernel_version_major=$(echo $KERNEL_VERSION | cut -d '.' -f 1-2)
+  else
+    kernel_version_major=$kernel_version_first_digit.x
+  fi
+  kernel_version_minor=$(echo $KERNEL_VERSION | cut -d '.' -f 1-3)
+  url=https://www.kernel.org/pub/linux/kernel/v${kernel_version_major}/linux-${KERNEL_VERSION}.tar.xz
+  if [ $kernel_version_first_digit -eq 2 ]
+  then
+    url_lts=https://www.kernel.org/pub/linux/kernel/v${kernel_version_major}/longterm/v${kernel_version_minor}/linux-${KERNEL_VERSION}.tar.xz
+    if ! curl -fI HEAD $url &> /dev/null
+    then
+      url=$url_lts
+    fi
+  fi
   curl "$url" > $kernel_archive
 fi
 
