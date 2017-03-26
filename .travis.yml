@@ -23,7 +23,8 @@ env:
   - KERNEL_VERSION=2.6.35 ARCH=x86_64
 matrix:
   allow_failures:
-    - env: KERNEL_VERSION=2.6.16
+    - env: KERNEL_VERSION=2.6.16 ARCH=i386
+    - env: KERNEL_VERSION=2.6.16 ARCH=x86_64
   fast_finish: true
 script:
   - "./ci/build $KERNEL_VERSION $ARCH"

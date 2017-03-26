@@ -41,7 +41,7 @@ pushd $kernel_dir
 
   # configure kernel
   make mrproper
-  make -j $PROC_COUNT ARCH=${ARCH} ${ARCH}_defconfig || true
+  make -j $PROC_COUNT ARCH=${ARCH} defconfig || true
   make -j $PROC_COUNT ARCH=${ARCH} modules_prepare || true
 popd
 
