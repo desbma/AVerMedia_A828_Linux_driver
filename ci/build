@@ -4,7 +4,8 @@ set -o pipefail
 
 readonly KERNEL_VERSION=${1:?}
 readonly ARCH=${2:?}
-readonly GCC_MAJOR_VERSION=$(gcc --version | head -n 1 | sed -e 's/^.* \([0-9]\).[0-9].[0-9] .*$/\1/')
+readonly GCC_MAJOR_VERSION=$(echo '#include <stdio.h>
+void main() { printf("%u\n", __GNUC__); }' | gcc -x c - -o /tmp/getgccversion  && /tmp/getgccversion)
 readonly PROC_COUNT=$(grep -c '^processor' /proc/cpuinfo)
 
 
