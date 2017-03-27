@@ -168,10 +168,12 @@ static int dvb_fe_ioctl(struct dvb_frontend *fe, unsigned int cmd, void *arg);
 #endif
 static int demux_sw_start_feed(struct dvb_demux_feed *feed);
 static int demux_sw_stop_feed(struct dvb_demux_feed *feed);
+#if LINUX_VERSION_CODE < KERNEL_VERSION(3,3,0)
 static int dvbfe_set_parameters(struct dvb_frontend *fe,
 			struct dvb_frontend_parameters *param);
 static int dvbfe_get_parameters(struct dvb_frontend *fe,
 			struct dvb_frontend_parameters *param);
+#endif
 static int dvbfe_read_status(struct dvb_frontend* fe, fe_status_t* status);
 static int dvbfe_read_ber(struct dvb_frontend* fe, u32* ber);
 static int dvbfe_read_signal_strength(struct dvb_frontend* fe, u16* strength);
@@ -276,8 +278,10 @@ int SysDVBRegisterFrontend(dvb_t dev, struct dvb_frontend_info *info,
 
 	p->fe.ops.info = *info;
 	p->fe.ops.release = dvbfe_release;
+#if LINUX_VERSION_CODE < KERNEL_VERSION(3,3,0)
 	p->fe.ops.set_frontend = dvbfe_set_parameters;
 	p->fe.ops.get_frontend = dvbfe_get_parameters;
+#endif
 	p->fe.ops.read_status = dvbfe_read_status;
 	p->fe.ops.read_ber = dvbfe_read_ber;
 	p->fe.ops.read_signal_strength =
@@ -753,6 +757,7 @@ static int demux_sw_stop_feed(struct dvb_demux_feed *feed)
 	return status;
 }
 
+#if LINUX_VERSION_CODE < KERNEL_VERSION(3,3,0)
 static int dvbfe_set_parameters(struct dvb_frontend *fe,
 				struct dvb_frontend_parameters *param)
 {
@@ -768,6 +773,7 @@ static int dvbfe_get_parameters(struct dvb_frontend *fe,
 	DBG_fCDVB("calling GetParameters()\n");
 	return GetParameters(p->context, param);
 }
+#endif
 
 static int dvbfe_read_status(struct dvb_frontend* fe, fe_status_t* status)
 {

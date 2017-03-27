@@ -123,8 +123,10 @@ int GetStatus(void *context, fe_status_t *stat);
 int GetBER(void *context, unsigned int *ber);
 int GetSignalStrength(void *context, unsigned short *signal);
 int GetSNR(void *context, unsigned short *snr);
+#if LINUX_VERSION_CODE < KERNEL_VERSION(3,3,0)
 int SetParameters(void *context, struct dvb_frontend_parameters *param);
 int GetParameters(void *context, struct dvb_frontend_parameters *param);
+#endif
 int FEInit(void *context);
 int FESleep(void *context);
 
