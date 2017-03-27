@@ -81,6 +81,7 @@ shall govern.
 #include	"aver/id.h"
 #include	"a828-core.h"
 #include	<linux/version.h>
+#include  <linux/module.h>
 
 MODULE_DESCRIPTION("AVerMedia USB Hybrid+FM Volar driver v"DRIVER_VER);
 MODULE_AUTHOR("MPD Linux Team");
