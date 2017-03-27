@@ -1686,9 +1686,9 @@ int SysInitWork(pWorkStruct *work, cb_workqueue func, void *data)
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,20)
 	struct jump_struct *jump;
 
-    jump = SysKMalloc(sizeof(struct jump_struct), eKMALLOC_KERNEL); 
-	memset(jump,0,sizeof(jump));
-	
+    jump = SysKMalloc(sizeof(struct jump_struct), eKMALLOC_KERNEL);
+	memset(jump,0,sizeof(*jump));
+
 	jump->data   = data;
 	jump->func   = func;
 	

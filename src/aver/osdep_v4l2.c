@@ -213,7 +213,8 @@ int SysVideoDevRegister(const char *name, unsigned int type,
 		ret = -ENOMEM;
 		goto fail1;
 	}
-	memset(cont->vfd, 0, sizeof(cont->vfd));
+	memset(cont->vfd, 0, sizeof(*cont->vfd));
+
 
 	
 	cont->vfd->name[sizeof(cont->vfd->name)-1] = 0;

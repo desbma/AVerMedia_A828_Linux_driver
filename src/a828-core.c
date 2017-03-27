@@ -89,7 +89,7 @@ MODULE_LICENSE("AVerMedia TECHNOLOGIES, Inc.");
 
 
 
-int AlwaysPowerOn=0;
+bool AlwaysPowerOn=0;
 module_param(AlwaysPowerOn, bool, 0644);
 MODULE_PARM_DESC(AlwaysPowerOn, " If set 'AlwaysPowerOn=1', the device does not turn off the power. Default value is 0.");
 
