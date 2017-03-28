@@ -45,7 +45,7 @@ ifeq ($(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(extra-version),2.6.11-1.1369_FC4smp)
 endif
 
 
-EXTRA_CFLAGS += -I$(KERNELSRC)/drivers/media/dvb/dvb-core -DUSE_SWIC2 		-D__AVER_USB_PRE__=AVerA828_ -D__AVER_USB_PRE_NAME__="\"A828\""
+EXTRA_CFLAGS += -I$(KERNELSRC)/drivers/media/dvb/dvb-core -I$(KERNELSRC)/drivers/media/dvb-core -DUSE_SWIC2 		-D__AVER_USB_PRE__=AVerA828_ -D__AVER_USB_PRE_NAME__="\"A828\""
 
 
 

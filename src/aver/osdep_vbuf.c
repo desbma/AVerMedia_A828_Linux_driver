@@ -86,6 +86,10 @@ shall govern.
 
 #include "debug.h"
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,7,0)
+# define VM_RESERVED (VM_DONTEXPAND | VM_DONTDUMP)
+#endif
+
 static void
 vbuf_vm_open(struct vm_area_struct *vma)
 {
