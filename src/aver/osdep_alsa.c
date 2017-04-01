@@ -212,7 +212,7 @@ int SysAlsaInitCard(alsa_card_t *acard, const char *drivername, const char *devi
 	else {
 		DBG_fALSA(" got snd_card ptr 0x%p\n", card);
 	}
-#else
+#elif LINUX_VERSION_CODE < KERNEL_VERSION(3,16,0)
 	i = snd_card_create(-1, deviceid, THIS_MODULE, sizeof(struct alsa_card_context), &card);
 	if( i<0 ) {
 		DBG_fALSA(" calling snd_card_new failed, ret=%d\n", i);
@@ -221,9 +221,17 @@ int SysAlsaInitCard(alsa_card_t *acard, const char *drivername, const char *devi
 	else {
 		DBG_fALSA(" got snd_card ptr 0x%p\n", card);
 	}
-#endif 
+#else
+	i = snd_card_new(NULL, -1, deviceid, THIS_MODULE, sizeof(struct alsa_card_context), &card);
+	if( i<0 ) {
+		DBG_fALSA(" calling snd_card_new failed, ret=%d\n", i);
+		return i;
+	}
+	else {
+		DBG_fALSA(" got snd_card ptr 0x%p\n", card);
+	}
+#endif
 
-	
 
 	SysSnPrintf(card->driver, sizeof(card->driver), "%s", drivername);
 	SysSnPrintf(card->shortname, sizeof(card->shortname), "%s", devicename);
