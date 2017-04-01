@@ -175,7 +175,11 @@ static struct v4l2_file_operations video_new_fops =
 	.write    = video_write,
 	.poll     = video_poll,
 	.mmap     = video_mmap,
+#if LINUX_VERSION_CODE < KERNEL_VERSION(4,1,0)
 	.ioctl    = video_new_ioctl,
+#else
+	.unlocked_ioctl = video_new_ioctl,
+#endif
 };
 
 #endif  
