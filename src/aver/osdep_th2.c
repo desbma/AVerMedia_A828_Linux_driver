@@ -92,8 +92,10 @@ int SysSetThreadName(const char *name)
         daemonize();
         sigfillset(&current->blocked);
         sprintf(current->comm, "%s", name);
-#else
+#elif LINUX_VERSION_CODE < KERNEL_VERSION(3,8,0)
         daemonize("%s", name);
+        allow_signal(SIGTERM);
+#else
         allow_signal(SIGTERM);
 #endif
         siginitsetinv(&current->blocked, sigmask(SIGKILL)|sigmask(SIGINT)|                        sigmask(SIGTERM));
