@@ -58,6 +58,10 @@ env:
 #     - env: KERNEL_VERSION=2.6.16 ARCH=i386
 #     - env: KERNEL_VERSION=2.6.16 ARCH=x86_64
 #   fast_finish: true
+addons:
+  apt:
+    packages:
+      - bc
 script:
   - "./ci/build $KERNEL_VERSION $ARCH"
 notifications:
