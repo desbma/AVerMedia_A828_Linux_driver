@@ -76,13 +76,21 @@ shall govern.
 #include <linux/signal.h>
 #include <linux/version.h>
 #include <linux/sched.h>
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,8,0)
+#include <linux/kthread.h>
+#endif
 #include "osdep_th2.h"
 #include "osdep.h"
 
 
 int SysKernelThread(void (*func)(void *),void *thObj)
 {
+#if LINUX_VERSION_CODE < KERNEL_VERSION(3,8,0)
         return kernel_thread((int (*)(void *))func,thObj,0);
+#else
+        struct task_struct *tsk = kthread_run((int (*)(void *))func,thObj,0);
+        return IS_ERR(tsk);
+#endif
 }
 
 int SysSetThreadName(const char *name) 
