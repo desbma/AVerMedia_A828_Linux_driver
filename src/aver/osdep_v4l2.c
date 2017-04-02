@@ -232,7 +232,7 @@ int SysVideoDevRegister(const char *name, unsigned int type,
 	cont->vfd->fops = &video_new_fops;
 #endif
 
-#if LINUX_VERSION_CODE > KERNEL_VERSION(3,10,0)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,11,0)
 	cont->vfd->dev_parent = (struct device *)dev;
 	cont->vfd->release = video_device_release;
 #elif LINUX_VERSION_CODE > KERNEL_VERSION(2,6,26)
