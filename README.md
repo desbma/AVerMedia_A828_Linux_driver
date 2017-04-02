@@ -32,6 +32,5 @@ The original official driver supports x86 and x86-64 architecture and has binary
 ## Installation
 
     make
-    make install
 
 *TODO DKMS*
