@@ -43,14 +43,15 @@ fi
 
 pushd $kernel_dir
   # fix compilation of old kernels with recent GCC
-  if [ ! -f include/linux/compiler-gcc${GCC_MAJOR_VERSION}.h ]
+  compiler_file=compiler-gcc${GCC_MAJOR_VERSION}.h
+  if [ ! -f include/linux/${compiler_file} -a ! -h include/linux/${compiler_file} ]
   then
     pushd include/linux
     if [ -f compiler-gcc5.h -a $GCC_MAJOR_VERSION -gt 5 ]
     then
-      ln -sv compiler-gcc5.h compiler-gcc${GCC_MAJOR_VERSION}.h
+      ln -sv compiler-gcc5.h ${compiler_file}
     else
-      ln -sv compiler-gcc4.h compiler-gcc${GCC_MAJOR_VERSION}.h
+      ln -sv compiler-gcc4.h ${compiler_file}
     fi
     popd
   fi

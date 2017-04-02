@@ -96,7 +96,6 @@ shall govern.
 #include <asm/uaccess.h>
 #include <linux/spinlock.h>
 #include <linux/mm.h>
-#include <asm/scatterlist.h>
 #include <linux/vmalloc.h>
 #include <linux/timer.h>
 #include <linux/pci.h>
