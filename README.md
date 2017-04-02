@@ -31,6 +31,18 @@ The original official driver supports x86 and x86-64 architecture and has binary
 
 ## Installation
 
-    make
+### Manual
+
+    git clone https://github.com/desbma/AVerMedia_A828_Linux_driver
+    cd AVerMedia_A828_Linux_driver/src
+    make KERNELDIR=/usr/lib/modules/KERNEL_VERSION/build
+    sudo mkdir /usr/lib/modules/KERNEL_VERSION/kernel/drivers/a828
+    sudo cp -v *.ko /usr/lib/modules/KERNEL_VERSION/kernel/drivers/a828
+    sudo depmod
+    sudo modprobe -v a828
+
+Adapt kernel and modules directories if needed.
+
+### Using DKMS (recommended)
 
 *TODO DKMS*
